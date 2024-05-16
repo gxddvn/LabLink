@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* user-select: none; */
+  font-size: clamp(0.75rem, 1.5rem, 3rem);
+}
+
+body {
+  width: 100%;
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+  font-family: Rubik;
+  font-style: normal;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+a {
+  text-decoration: none;
+}
+
+.Wrapper {
+  position: relative;
+  max-width: 1500px;
+  height: auto;
+  margin: 0 auto;
+}
+
