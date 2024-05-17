@@ -61,8 +61,8 @@ const AnalyzesResult = () => {
                         <h1 className='text-3xl font-semibold'>Результати аналізів</h1>
                         <button onClick={() => {sendAnalyzesOnEmail()}} className='text-base font-medium bg-sky-500 px-3 py-2 rounded-xl transition-all ease-linear hover:bg-sky-700'>Відправити аналізи</button>
                         <CustomModal className="absolute z-50" isOpen={isOpen} onClose={() => setIsOpen(false)} title="Сповіщення" buttonName="Змінити">
-                            <p className='text-xl font-medium my-5 max-w-96'>Результати аналізів були успішно відправлені!</p>
-                            <div className='flex justify-center items-center my-5'>
+                            <p className='text-xl font-normal my-5 max-w-96'>Результати аналізів були успішно відправлені!</p>
+                            <div className='flex justify-center items-center my-2'>
                                 <button onClick={() => setIsOpen(false)} className='text-base font-medium bg-sky-500 px-3 py-2 rounded-xl transition-all ease-linear hover:bg-sky-700'>Ок</button>
                             </div>
                             
