@@ -4,11 +4,20 @@ import axios from '../../axios';
 import { useSelector } from 'react-redux';
 import { selectProfileData } from '../../Store/Slices/profile';
 import CustomModal from '../CustomModal';
+import Slider from './Slider';
 
 
 const Home = () => {
     const profileData = useSelector(selectProfileData);
     const [isOpen, setIsOpen] = useState(false)
+    
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+    };
 
     const {
         register, 
@@ -25,13 +34,46 @@ const Home = () => {
     });
 
     const onSubmit = async (values) => {
-        const data = await axios.post("/records/", values)
-        !data.data?.id ? alert("Не вдалося записатись на консультацію!") : reset()
+        if (profileData.IsAuth) {
+            const data = await axios.post("/records/", values)
+            !data.data?.id ? alert("Не вдалося записатись на консультацію!") : reset()
+        }
     };
 
     return (
+
+        
         <div className="flex flex-col items-center py-12">
-            <form onSubmit={handleSubmit(onSubmit)} className='shadow-lg px-6 py-5 rounded-2xl bg-gray-800'>
+            <div className='flex relative'>
+                <Slider img_list={['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg']}/>
+                <span className='absolute max-w-96 text-2xl font-semibold bg-[rgba(17,24,39,0.7)] rounded-md top-52 left-16 px-2 py-1'>Lab<span className='text-2xl font-semibold text-sky-500'>Link</span> – це ваш надійний союзник у підтримці здоров’я!</span>
+            </div>
+            <div className='my-12'>
+                <h1 className='text-3xl font-semibold mb-6'>Про нас</h1>
+                <p className='text-base font-normal my-2 indent-8'> Ласкаво просимо до LabLink! Ваш надійний партнер у світі медичної діагностики. 
+                    LabLink – це сучасна медична лабораторія, яка пропонує широкий спектр високоякісних діагностичних послуг для вашого здоров’я та благополуччя. 
+                    Ми прагнемо забезпечити точні, швидкі та зручні лабораторні дослідження для наших клієнтів.
+                </p>
+                <p className='text-base font-normal my-2 indent-8'>
+                    Наші переваги: сучасне обладнання – ми використовуємо новітні технології та обладнання для гарантії точності результатів; 
+                    професійний персонал – наші фахівці це досвідчені медики з багаторічним стажем роботи; широкий спектр послуг – від базових аналізів 
+                    крові до складних генетичних досліджень; швидкість та зручність – результати досліджень доступні в найкоротші терміни, 
+                    а запис на аналізи онлайн; індивідуальний підхід – ми дбаємо про кожного клієнта, пропонуючи індивідуальні консультації та рекомендації.
+                </p>
+                <p className='text-base font-normal my-2 indent-8'>
+                    Наші послуги: аналізи крові та сечі, гормональні дослідження, біохімічні дослідження, імунологічні тести, 
+                    генетичні тести, аналізи на інфекційні захворювання.
+                </p>
+                <p className='text-base font-normal my-2 indent-8'>
+                Як це працює: запис онлайн – обирайте зручний час для візиту через наш веб-сайт; відвідування лабораторії – професійне обслуговування в комфортних умовах; 
+                отримання результатів – результати доступні онлайн або за бажанням на паперовому носії; консультації та підтримка – 
+                наші фахівці готові надати рекомендації та відповісти на ваші запитання.
+                </p>
+                <p className='text-base font-normal my-2 indent-8'>
+                    Не відкладайте турботу про своє здоров'я! Зв'яжіться з нами сьогодні для отримання детальної інформації про наші послуги та запису на дослідження.
+                </p>
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)} className='shadow-lg px-6 py-5 mb-5 rounded-2xl bg-gray-800'>
                 <h1 className='text-3xl font-semibold mb-6'>Звернутися за консультацією</h1>
                 <div className="relative my-5 rounded-md shadow-sm">
                     <input
@@ -69,49 +111,7 @@ const Home = () => {
                     <button type="submit" disabled={!isValid} onClick={() => setIsOpen(true)} className='bg-sky-500 transition-all ease-linear hover:bg-sky-600 text-base px-2 py-1 rounded-md font-medium'>Відправити</button>
                 </div>
             </form>
-            <CustomModal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Успішно записан" buttonName="Ок"></CustomModal>
-            <div className='my-24'>
-                <h1 className='text-3xl font-semibold mb-6'>Lorem ipsum...</h1>
-                <p className='text-base font-normal my-2 indent-8'> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vestibulum vel orci eget vehicula. Nullam fringilla erat 
-                    a nisi convallis, in molestie dolor imperdiet. Quisque ut ipsum auctor, consequat magna in, euismod orci. Morbi quis dolor 
-                    malesuada, convallis arcu non, varius diam. Integer libero felis, ultrices aliquam libero eget, porta rutrum ex. 
-                    Aliquam erat volutpat. Nam blandit euismod aliquam. Phasellus facilisis tempor condimentum. Quisque imperdiet maximus metus id efficitur. 
-                    Sed consectetur ex neque, vel dignissim sapien cursus nec. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                    Sed pretium dolor ante, fringilla consectetur metus dictum ac. Sed massa elit, dignissim lacinia semper sed, porta id arcu.
-                </p>
-                <p className='text-base font-normal my-2 indent-8'>
-                    Suspendisse vel mattis augue, eu venenatis libero. Cras laoreet nunc neque, vel semper elit mollis in. Praesent vulputate tortor 
-                    quis lectus blandit, non mattis ex sodales. In eu congue massa. Ut placerat arcu a vehicula auctor. Phasellus dignissim, odio a rutrum porta, 
-                    libero ligula viverra mi, a viverra velit mauris non nisi. Aenean euismod facilisis dolor non mattis. Mauris aliquam, 
-                    ligula ut lacinia malesuada, leo neque elementum urna, ac lobortis est libero et sem. Morbi nisl purus, accumsan sed est scelerisque, 
-                    laoreet mollis arcu. Morbi eget volutpat augue, non blandit neque.
-                </p>
-                <p className='text-base font-normal my-2 indent-8'>
-                    Sed a maximus nibh. Sed eu risus ac velit rhoncus iaculis in ac ante. Pellentesque lacinia urna non leo posuere sollicitudin. 
-                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed nisi diam, sodales ut placerat sit amet, 
-                    faucibus eget odio. Phasellus non bibendum sem, id faucibus est. Ut nec tellus dui. Praesent semper tellus sed lorem hendrerit imperdiet. 
-                    In hac habitasse platea dictumst. Nulla laoreet cursus nunc, id dapibus dui interdum in. Nulla facilisi. Donec lectus magna, tincidunt quis est et, 
-                    sagittis facilisis dolor. Vivamus purus diam, ullamcorper a cursus a, blandit id sem.
-                </p>
-                <p className='text-base font-normal my-2 indent-8'>
-                    Praesent sit amet nisi condimentum, semper tellus in, pellentesque lorem. Praesent massa enim, blandit eget euismod sit amet, feugiat eget massa. 
-                    Proin consequat, est et aliquet tristique, felis risus egestas elit, accumsan viverra magna eros euismod eros. In tempor, purus et lobortis cursus, 
-                    metus augue ullamcorper tortor, ut faucibus neque nunc et nunc. Morbi eget ullamcorper ante, et consequat ipsum. Class aptent taciti sociosqu 
-                    ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum auctor purus quam, vitae posuere urna pretium ultrices. 
-                    Phasellus eget purus nibh. Proin tincidunt a nibh ac feugiat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; 
-                    Etiam tellus est, aliquet id hendrerit ut, ultricies ut diam. Vestibulum vel purus justo. Nullam hendrerit semper arcu. 
-                    Duis porttitor lacus nec purus finibus vestibulum. Maecenas laoreet dolor eu ipsum tincidunt, vitae placerat ex mollis. 
-                    Phasellus accumsan turpis in dolor efficitur porta.
-                </p>
-                <p className='text-base font-normal my-2 indent-8'>
-                    Nunc sollicitudin bibendum posuere. Nunc molestie viverra pulvinar. Proin sit amet velit non erat tincidunt accumsan nec sed quam. 
-                    Morbi non pulvinar risus, ultricies sodales nibh. Vestibulum pretium cursus neque, a lacinia urna aliquet id. 
-                    Morbi fermentum justo diam, ac imperdiet ante condimentum vitae. Donec eros quam, placerat sed metus ut, convallis sodales nibh. 
-                    Morbi a nulla ex. Mauris vestibulum, dui mollis malesuada porta, orci nibh elementum quam, vel tempus sapien massa in augue. 
-                    Morbi sit amet gravida felis, vel cursus lacus. Nullam cursus eu orci ac consectetur. Quisque ligula massa, vulputate a faucibus ut, 
-                    consequat non mi. Nam egestas nec dui ut dignissim. Vivamus eleifend ante justo, a porttitor ligula feugiat eu. Vivamus nec dictum neque.
-                </p>
-            </div>
+            {profileData.IsAuth && (<CustomModal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Успішно записан" buttonName="Ок"></CustomModal>)}
         </div>
     )
 }
