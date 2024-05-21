@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Request } from 'express';
 import { AnalyzesResultService } from './analyzes-result.service';
 import { AnalyzesResult } from './entities/analyzes-result.entity';
 import { JwtAuthGuard } from 'src/users/guards/jwt.guard';
@@ -32,8 +33,8 @@ export class AnalyzesResultController {
 
     @Post()
     @UseGuards(JwtAuthGuard)
-    create(@Body() analyzesResult: AnalyzesResult): Promise<AnalyzesResult> {
-        return this.analyzesResultService.create(analyzesResult);
+    create(@Body() analyzesResult: AnalyzesResult, @Req() req: Request): Promise<AnalyzesResult> {
+        return this.analyzesResultService.create(analyzesResult, req.user);
     }
 
     @Put(':id')

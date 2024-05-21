@@ -59,12 +59,13 @@ export class AnalyzesResultService {
             item.direct_bilirubin, item.total_bilirubin, item.alt, item.ast, 
             item.amylase, item.ldh, item.ck
         ])
+        console.log(__dirname.replace('dist','src'))
         console.log("SendOnEmailPdf");
         const doc = new PDFDocumentWithTables();
         const buffers: Buffer[] = [];
         doc.on('data', buffers.push.bind(buffers));
-        const fontMPath = 'D:/sitesprog/LabLink/backend/src/analyzes-result/Rubik-Medium.ttf';
-        const fontSmPath = 'D:/sitesprog/LabLink/backend/src/analyzes-result/Rubik-SemiBold.ttf';
+        const fontMPath = __dirname.replace('dist','src') + '/Rubik-Medium.ttf';
+        const fontSmPath = __dirname.replace('dist','src') + '/Rubik-SemiBold.ttf';
         doc.font(fontMPath); // Встановіть шрифт з підтримкою української мови
         doc.rect(0, 0, doc.page.width, doc.page.height).fill('#111827');
         doc.fillColor('white').font(fontSmPath).fontSize(28).text('Lab', { continued: true });
@@ -117,7 +118,8 @@ export class AnalyzesResultService {
     async remove(id: string): Promise<void> {
         await this.AnalyzesResultRepository.delete(id);
     }
-    async create(analyzesResult: AnalyzesResult): Promise<AnalyzesResult> {
+    async create(analyzesResult: AnalyzesResult, req: any): Promise<AnalyzesResult> {
+        analyzesResult.user = req.id;
         return this.AnalyzesResultRepository.save(analyzesResult);
     }
     async update(analyzesResult: AnalyzesResult): Promise<AnalyzesResult> {

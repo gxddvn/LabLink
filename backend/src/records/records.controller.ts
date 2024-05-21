@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { RecordsService } from './records.service';
 import { Record } from './entities/records.entity';
 import { JwtAuthGuard } from 'src/users/guards/jwt.guard';
+import { Request } from 'express';
 
 @Controller('records')
 export class RecordsController {
@@ -20,8 +21,8 @@ export class RecordsController {
 
     @Post()
     @UseGuards(JwtAuthGuard)
-    create(@Body() record: Record): Promise<Record> {
-        return this.recordsService.create(record);
+    create(@Body() record: Record, @Req() req: Request): Promise<Record> {
+        return this.recordsService.create(record, req.user);
     }
 
     @Put(':id')

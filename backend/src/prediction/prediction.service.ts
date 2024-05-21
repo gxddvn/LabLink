@@ -6,7 +6,7 @@ import { DataSetPredictionDto, PredictionDto } from './dto/predictions.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Prediction } from './entities/prediction.entity';
 import { Repository } from 'typeorm';
-import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
+// import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 
 
 function smokingHistoryEncoded(smokingHistory: string) {
@@ -59,7 +59,7 @@ export class PredictionService {
         this.model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' }));
         this.model.compile({ optimizer: 'adam', loss: 'binaryCrossentropy', metrics: ['accuracy'] });
         const diabetesData: DataSetPredictionDto[] = [];
-        fs.createReadStream('D:/sitesprog/LabLink/backend/src/prediction/diabetes_prediction_dataset.csv')
+        fs.createReadStream(__dirname.replace('dist','src') + '/diabetes_prediction_dataset.csv')
         .pipe(csvParser())
         .on('data', (row) => {
             diabetesData.push(row);

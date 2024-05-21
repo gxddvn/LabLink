@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 
 const Slider = ({img_list = [], }) => {
     const [isSlide, setIsSlide] = useState(0)
-    console.log(img_list);
-    console.log(isSlide);
     return (
         <div className='flex relative'>
             <img className='max-w-2xl' src={`src/components/Home/${img_list[isSlide]}`} alt="" />

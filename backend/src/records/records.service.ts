@@ -18,7 +18,8 @@ export class RecordsService {
     async remove(id: string): Promise<void> {
         await this.RecordsRepository.delete(id);
     }
-    async create(Record: Record): Promise<Record> {
+    async create(Record: Record, user: any): Promise<Record> {
+        Record.user = user.id
         return this.RecordsRepository.save(Record);
     }
     async update(Record: Record): Promise<Record> {
