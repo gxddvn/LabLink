@@ -18,7 +18,7 @@ const Footer = () => {
                 <a className='text-base font-normal transition-all ease-linear hover:text-sky-300' href="mailto:lablinkemail@gmail.com">lablinkemail@gmail.com</a>
                 <div className='flex flex-col'>
                     <a className='text-base font-normal transition-all ease-linear hover:text-sky-300' href="tel:+380954563740">+380954563740</a>
-                    <button href="tel:+380954563740" className='bg-sky-500 text-base font-normal px-3 py-2 my-2 rounded-xl transition-all ease-linear hover:bg-sky-600'>Замовити дзвінок</button>
+                    <a href="tel:+380954563740" className='bg-sky-500 text-base font-normal px-3 py-2 my-2 rounded-xl transition-all ease-linear hover:bg-sky-600'>Замовити дзвінок</a>
                 </div>
             </div>
         </>
